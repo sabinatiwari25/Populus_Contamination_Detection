@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N populus_kraken
+#PBS -q medium
+#PBS -l select=1:ncpus=2:mem=16gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+bash "$HOME/Week9_Populus/scripts/04_kraken_screen.sh"

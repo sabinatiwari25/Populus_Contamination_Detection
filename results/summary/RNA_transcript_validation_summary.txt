@@ -1,0 +1,23 @@
+RNA-seq accession: SRR3241527
+Organism: Populus trichocarpa
+
+Initial Kraken2 human assignments: 15 / 100000 reads
+Candidate human fraction: 0.015%
+
+Human competitive genome alignments: 3 reads
+Human high-confidence alignments (MAPQ >=20): 3 reads
+Human alignment-supported fraction: 0.003%
+
+Human reference coverage:
+Covered bases: 291
+Breadth: 0.0000088224%
+Mean depth: 0.000000088224X
+
+Host transcriptome:
+Assembly: GCF_000002775.5
+Annotated RNA sequences: 59542
+Human-candidate reads tested: 3
+Reads aligned to Populus transcripts: 0
+
+Preliminary classification: Possible trace human-origin signal.
+Interpretation remains provisional.

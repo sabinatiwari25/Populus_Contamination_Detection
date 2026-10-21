@@ -1,0 +1,6 @@
+dataset	library	candidate	kraken_count	denominator	count_unit	kraken_fraction_percent	candidate_mapped_to_target	candidate_mapped_to_populus	alignment_unit	target_breadth_percent	target_mean_depth_x	classification
+SRR36001243	DNA_WGS	Homo sapiens	124	100000	read_pairs	0.124	0	200	individual_reads	0	0	noise_provisional
+SRR36001243	DNA_WGS	Wolbachia endosymbiont	4	100000	read_pairs	0.004	0	8	individual_reads	0	0	noise_provisional
+SRR3241527	RNA_seq	Homo sapiens	15	100000	reads	0.015	3	12	individual_reads	8.8224e-06	8.8224e-08	possible_trace
+SRR3241527	RNA_seq	Iamia sp.	2	100000	reads	0.002	0	2	individual_reads	0	0	likely_noise
+SRR3241527	RNA_seq	Kosakonia cowanii	1	100000	reads	0.001	0	1	individual_reads	0	0	likely_noise

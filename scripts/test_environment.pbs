@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N populus_test
+#PBS -q express
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -l walltime=00:15:00
+#PBS -j oe
+
+set -euo pipefail
+
+cd "$HOME/Week9_Populus"
+
+source "$HOME/miniforge3_week9/etc/profile.d/conda.sh"
+conda activate populus_contamination
+
+echo "===== COMPUTE NODE ====="
+hostname
+
+echo "===== DATE ====="
+date
+
+echo "===== SRA TOOLKIT ====="
+fasterq-dump --version
+
+echo "===== FASTQC ====="
+fastqc --version
+
+echo "===== KRAKEN2 ====="
+kraken2 --version
+
+echo "===== BOWTIE2 ====="
+bowtie2 --version 2>&1 | head -5
+
+echo "===== SAMTOOLS ====="
+samtools --version | head -2
+
+echo "===== TEST SUCCESSFUL ====="

@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N pop_transcript_idx
+#PBS -q medium
+#PBS -l select=1:ncpus=2:mem=16gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+source "$HOME/miniforge3_week9/etc/profile.d/conda.sh"
+conda activate populus_contamination
+
+BASE="/scratch/$USER/Week9_Populus/references/populus_transcripts"
+
+FASTA="$BASE/extracted/ncbi_dataset/data/GCF_000002775.5/rna.fna"
+
+mkdir -p "$BASE/index"
+
+bowtie2-build \
+  --threads 2 \
+  "$FASTA" \
+  "$BASE/index/populus_transcripts"
+
+echo "===== TRANSCRIPT INDEX COMPLETE ====="
+date

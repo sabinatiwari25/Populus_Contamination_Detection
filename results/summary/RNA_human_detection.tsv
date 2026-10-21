@@ -1,0 +1,2 @@
+dataset	candidate	total_reads	kraken_human_reads	kraken_fraction_percent	human_mapped_reads	human_MAPQ20_reads	human_covered_bases	human_breadth_percent	human_mean_depth	provisional_bin
+SRR3241527	Homo_sapiens	100000	15	0.015	3	3	291	0.0000088224	0.000000088224	trace_pending_validation

@@ -1,0 +1,57 @@
+# Sequencing data
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sra
+
+# Large sequence references and indexes
+*.fa
+*.fasta
+*.fna
+*.fai
+*.bt2
+*.bt2l
+*.k2d
+
+# Alignment files
+*.bam
+*.bai
+*.sam
+*.cram
+
+# Downloaded archives
+*.zip
+*.tar
+*.tar.gz
+
+# HPC output and temporary files
+*.o[0-9]*
+*.e[0-9]*
+*.tmp
+*.tmp.*
+
+# Local environment
+.conda/
+__pycache__/
+*.pyc
+
+# Large local analysis directories
+data/
+references/
+kraken_db/
+index/
+submission_review/
+
+# Intermediate analysis outputs
+results/validation/
+results/kraken/
+results/fastqc/
+
+# Credentials
+.env
+*.pem
+*.key
+
+# Generated HPC submission files
+*.i

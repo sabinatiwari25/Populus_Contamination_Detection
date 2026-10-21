@@ -1,0 +1,4 @@
+dataset	candidate	kraken_fragments_or_reads	fraction_percent	mapped_populus_individual_reads	mapped_microbe_individual_reads	provisional_bin
+DNA	Wolbachia	4	0.004	8	0	noise
+RNA	Iamia	2	0.002	2	0	likely_noise
+RNA	Kosakonia	1	0.001	1	0	likely_noise

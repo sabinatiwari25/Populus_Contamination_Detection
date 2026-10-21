@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N populus_refs
+#PBS -q medium
+#PBS -l select=1:ncpus=2:mem=8gb
+#PBS -l walltime=04:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+bash "$HOME/Week9_Populus/scripts/06_download_references.sh"

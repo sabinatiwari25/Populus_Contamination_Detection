@@ -1,0 +1,73 @@
+#!/bin/bash
+#PBS -N microbe_host_check
+#PBS -q large
+#PBS -l select=1:ncpus=4:mem=48gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+source "$HOME/miniforge3_week9/etc/profile.d/conda.sh"
+conda activate populus_contamination
+
+PROJECT="$HOME/Week9_Populus"
+INDEX="/scratch/$USER/Week9_Populus/index/human_populus"
+
+READS="$PROJECT/results/validation/microbes"
+OUT="$PROJECT/results/validation/microbes/host_mapping"
+
+mkdir -p "$OUT"
+
+echo "===== START MICROBIAL HOST VALIDATION ====="
+date
+
+echo "===== DNA WOLBACHIA ====="
+
+bowtie2 --very-sensitive-local \
+  -x "$INDEX" \
+  -1 "$READS/DNA_Wolbachia_R1.fastq.gz" \
+  -2 "$READS/DNA_Wolbachia_R2.fastq.gz" \
+  -X 1000 -p 4 \
+  2> "$OUT/DNA_Wolbachia.log" \
+  | samtools view -b -o "$OUT/DNA_Wolbachia.bam" -
+
+echo "===== RNA IAMIA ====="
+
+bowtie2 --very-sensitive-local \
+  -x "$INDEX" \
+  -U "$READS/RNA_Iamia.fastq.gz" \
+  -p 4 \
+  2> "$OUT/RNA_Iamia.log" \
+  | samtools view -b -o "$OUT/RNA_Iamia.bam" -
+
+echo "===== RNA KOSAKONIA ====="
+
+bowtie2 --very-sensitive-local \
+  -x "$INDEX" \
+  -U "$READS/RNA_Kosakonia.fastq.gz" \
+  -p 4 \
+  2> "$OUT/RNA_Kosakonia.log" \
+  | samtools view -b -o "$OUT/RNA_Kosakonia.bam" -
+
+echo "===== CREATE ALIGNMENT REPORTS ====="
+
+for sample in DNA_Wolbachia RNA_Iamia RNA_Kosakonia
+do
+  samtools flagstat "$OUT/${sample}.bam" \
+    > "$OUT/${sample}_flagstat.txt"
+
+  samtools view -F 2308 "$OUT/${sample}.bam" \
+    | awk -F '\t' '{
+        printf "Read: %s | Reference: %s | MAPQ: %s | CIGAR: %s",
+               $1,$3,$5,$6
+
+        for(i=12;i<=NF;i++)
+          if($i ~ /^(NM|AS|XS):/)
+            printf " | %s",$i
+
+        print ""
+      }' > "$OUT/${sample}_details.txt"
+done
+
+echo "===== MICROBIAL HOST VALIDATION COMPLETE ====="
+date

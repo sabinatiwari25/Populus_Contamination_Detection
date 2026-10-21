@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N pop_RNA_validate
+#PBS -q medium
+#PBS -l select=1:ncpus=2:mem=16gb
+#PBS -l walltime=01:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+source "$HOME/miniforge3_week9/etc/profile.d/conda.sh"
+conda activate populus_contamination
+
+PROJECT="$HOME/Week9_Populus"
+BASE="/scratch/$USER/Week9_Populus/references/populus_transcripts"
+
+INDEX="$BASE/index/populus_transcripts"
+READS="$PROJECT/results/validation/RNA_transcript_validation/three_candidate_reads.fastq.gz"
+OUT="$PROJECT/results/validation/RNA_transcript_validation"
+
+echo "===== START TRANSCRIPT VALIDATION ====="
+
+bowtie2 \
+  --very-sensitive-local \
+  -k 5 \
+  -x "$INDEX" \
+  -U "$READS" \
+  -p 2 \
+  2> "$OUT/populus_transcript_bowtie2.log" \
+  | samtools view -b -o "$OUT/populus_transcript_alignments.bam" -
+
+samtools flagstat \
+  "$OUT/populus_transcript_alignments.bam" \
+  > "$OUT/populus_transcript_flagstat.txt"
+
+echo "===== TRANSCRIPT VALIDATION COMPLETE ====="
+date
